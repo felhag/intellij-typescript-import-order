@@ -1,18 +1,15 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.felhag.intellijtypescriptimportorder</id>
-    <name>intellij-typescript-import-order</name>
+    <name>Typescript Import Order</name>
     <vendor>felhag</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>JavaScript</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.felhag.intellijtypescriptimportorder.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.felhag.intellijtypescriptimportorder.services.MyProjectService"/>
+        <lang.importOptimizer order="first"
+                              language="TypeScript"
+                              implementationClass="com.github.felhag.intellijtypescriptimportorder.TypeScriptImportOrganizer"/>
     </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.felhag.intellijtypescriptimportorder.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
 </idea-plugin>
