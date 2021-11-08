@@ -7,14 +7,15 @@ import com.intellij.lang.javascript.psi.JSFile
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import org.apache.commons.lang.StringUtils
 import java.util.stream.Collectors
 
 class TypeScriptImportOrganizer : JSModuleImportOptimizerBase() {
     private val log = Logger.getInstance(TypeScriptImportOrganizer::class.java)
     private val groups = listOf(
-        Regex("import(.*)from ?\"(?!\\.).*"),
-        Regex("import(.*)from ?\"@ap.*"),
-        Regex("import(.*)from ?\"(\\.).*"),
+        Regex("import(.*)from ?[\"'].*"),
+        Regex("import(.*)from ?[\"']@ap.*"),
+        Regex("import(.*)from ?[\"']\\..*"),
     )
 
     override fun supports(file: PsiFile): Boolean {
@@ -30,8 +31,8 @@ class TypeScriptImportOrganizer : JSModuleImportOptimizerBase() {
             log.debug("sorting " + info.importTexts.size + " imports")
             val imports = info.importTexts
                 .stream()
-                .filter { i -> !i.equals("\n") }
-                .collect(Collectors.groupingBy { i -> groups.indexOfFirst { regex -> regex.matches(i) } })
+                .filter { i -> StringUtils.startsWith(i, "import") }
+                .collect(Collectors.groupingBy { i -> groups.indexOfLast { regex -> regex.matches(i) } })
 
             info.importTexts.clear()
             imports.entries.sortedBy { it.key }
