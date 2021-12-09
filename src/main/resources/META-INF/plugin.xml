@@ -6,6 +6,7 @@
 
     <depends>com.intellij.modules.platform</depends>
     <depends>JavaScript</depends>
+    <depends>Git4Idea</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.felhag.intellijtypescriptimportorder.Settings"/>
@@ -16,4 +17,13 @@
                               language="TypeScript"
                               implementationClass="com.github.felhag.intellijtypescriptimportorder.TypeScriptImportOrganizer"/>
     </extensions>
+
+    <actions>
+        <action id="open.jenkins" class="com.github.felhag.intellijtypescriptimportorder.OpenJenkins" text="Open in Jenkins" icon="OpenIcons.Jenkins">
+            <add-to-group group-id="ToolbarRunGroup" anchor="last" />
+        </action>
+        <action id="open.bitbucket" class="com.github.felhag.intellijtypescriptimportorder.OpenBitbucket" text="Open in Bitbucket" icon="OpenIcons.Bitbucket">
+            <add-to-group group-id="ToolbarRunGroup" anchor="last" />
+        </action>
+    </actions>
 </idea-plugin>
