@@ -8,6 +8,10 @@
     <depends>JavaScript</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="com.github.felhag.intellijtypescriptimportorder.Settings"/>
+        <applicationConfigurable instance="com.github.felhag.intellijtypescriptimportorder.SettingsConfigurer"
+                                 id="com.github.felhag.intellijtypescriptimportorder.SettingsConfigurer"
+                                 displayName="Typescript Import Order"/>
         <lang.importOptimizer order="first"
                               language="TypeScript"
                               implementationClass="com.github.felhag.intellijtypescriptimportorder.TypeScriptImportOrganizer"/>
